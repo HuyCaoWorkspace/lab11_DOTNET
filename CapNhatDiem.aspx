@@ -79,7 +79,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btnCapNhatDiem" runat="server" CssClass="btn-updates" Text="Cập Nhật" CommandArgument='<%# Eval("MSSV") + "," + Eval("MAMON") %>' OnClientClick="return confirmUpdate();" OnClick="btn_CapNhatDiem" />
+                            <asp:Button ID="btnCapNhatDiem" runat="server" CssClass="btn-update" Text="Cập Nhật" CommandArgument='<%# Eval("MSSV") + "," + Eval("MAMON") %>' OnClientClick="return confirmUpdate();" OnClick="btn_CapNhatDiem" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
