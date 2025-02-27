@@ -10,11 +10,12 @@ namespace lab11{
         protected void Page_Load(object sender, EventArgs e){
             if (!IsPostBack){
                 string mamon = Request.QueryString["mamon"];
-                LoadData("", mamon);
+                string malop = Request.QueryString["malop"];
+                LoadData("", mamon, malop);
             }
         }
 
-        private void LoadData(string mssv = "", string mamon = ""){
+        private void LoadData(string mssv = "", string mamon = "", string malop = ""){
             string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr)){
@@ -23,11 +24,13 @@ namespace lab11{
                             INNER JOIN SINHVIEN SV ON HM.MSSV = SV.MSSV 
                             INNER JOIN MONHOC MH ON HM.MAMON = MH.MAMON 
                             WHERE (@MSSV = '' OR HM.MSSV = @MSSV) 
-                            AND (@MAMON = '' OR HM.MAMON = @MAMON)";
+                            AND (@MAMON = '' OR HM.MAMON = @MAMON)
+                            AND (@MALOP = '' OR SV.MALOP = @MALOP)";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@MSSV", mssv);
                 cmd.Parameters.AddWithValue("@MAMON", mamon);
+                cmd.Parameters.AddWithValue("@MALOP", malop);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -36,15 +39,19 @@ namespace lab11{
                 GridViewCapNhatDiem.DataBind();
             }
         }
+
         protected void btn_XemTatCa(object sender, EventArgs e){
             txtMSSV.Text = "";
             string mamon = Request.QueryString["mamon"];
-            LoadData("", mamon);
+            string malop = Request.QueryString["malop"];
+            LoadData("", mamon, malop);
         }
+
         protected void btn_LocSinhVien(object sender, EventArgs e){
             string mssv = txtMSSV.Text.Trim();
             string mamon = Request.QueryString["mamon"];
-            LoadData(mssv, mamon);
+            string malop = Request.QueryString["malop"];
+            LoadData(mssv, mamon, malop);
         }
 
         private string ConvertDiemSoToDiemChu(decimal diemSo){
@@ -57,6 +64,7 @@ namespace lab11{
             if (diemSo >= 4.0m) return "D";
             return "F";
         }
+
         protected void btn_CapNhatDiem(object sender, EventArgs e){
             Button btn = (Button)sender;
             string[] args = btn.CommandArgument.Split(',');
@@ -67,15 +75,14 @@ namespace lab11{
             TextBox txtDiemSo = (TextBox)row.FindControl("txtDiemSo");
 
             if (decimal.TryParse(txtDiemSo.Text.Trim(), out decimal diemSo)){
-                string diemChu = ""; // Khai báo biến điểm chữ trước
 
                 if (diemSo < 0 || diemSo > 10){
                     ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Điểm số phải từ 0 đến 10!');", true);
-                    txtDiemSo.Text = ""; // Xóa ô nhập thay vì đặt "0.0"
+                    txtDiemSo.Text = ""; 
                     return;
                 }
 
-                diemChu = ConvertDiemSoToDiemChu(diemSo);
+                string diemChu = ConvertDiemSoToDiemChu(diemSo);
                 string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connStr)){
@@ -91,18 +98,25 @@ namespace lab11{
                 }
 
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Cập nhật điểm thành công!');", true);
+
+                string mamonQuery = Request.QueryString["mamon"];
+                string malopQuery = Request.QueryString["malop"];
+
                 if (txtMSSV.Text == mssv){
-                    LoadData(mssv, mamon);
+                    LoadData(mssv, mamonQuery, malopQuery);
                 }
                 else{
-                    string mamonQuery = Request.QueryString["mamon"];
-                    LoadData("", mamonQuery);
+                    LoadData("", mamonQuery, malopQuery);
                 }
             }
             else{
                 ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Vui lòng nhập số hợp lệ!');", true);
                 txtDiemSo.Text = "";
             }
+        }
+
+        protected void btn_DSMH(object sender, EventArgs e){
+            Response.Redirect("HienthiMonHoc.aspx");
         }
     }
 }

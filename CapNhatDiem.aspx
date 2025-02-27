@@ -15,20 +15,20 @@
             text-align: center;
         }
 
-        .auto-style1 {
+        .GridView_CapNhatDiem {
             width: 100%;
             border-collapse: collapse; 
             margin-top: 20px;
         }
 
-        .auto-style1 th {
+        .GridView_CapNhatDiem th {
             background-color: #1D5DA7; 
             color: white;
             padding: 10px;
             text-align: center;
         }
 
-        .auto-style1 td {
+        .GridView_CapNhatDiem td {
             padding: 8px;
             text-align: center;
         }
@@ -58,10 +58,10 @@
             <div style="font-size: x-large; text-align: center;">CẬP NHẬT ĐIỂM THI</div>
             <br />
             <asp:TextBox ID="txtMSSV" runat="server" Placeholder="Nhập MSSV"></asp:TextBox>
-            <asp:Button ID="btnLocSinhVien" CssClass="btn-update" runat="server" Text="Lọc" OnClick="btn_LocSinhVien" />
+            <asp:Button ID="btnLocSinhVien" CssClass="btn-update" runat="server" Text="Tìm" OnClick="btn_LocSinhVien" />
             <asp:Button ID="btnXemTatCa" CssClass="btn-update" runat="server" Text="Hiển thị tất cả" OnClick="btn_XemTatCa" />
 
-            <asp:GridView ID="GridViewCapNhatDiem" runat="server" AutoGenerateColumns="False" CssClass="auto-style1" BorderWidth="1px" CellPadding="5" CellSpacing="0" GridLines="Both">
+            <asp:GridView ID="GridViewCapNhatDiem" runat="server" AutoGenerateColumns="False" CssClass="GridView_CapNhatDiem" BorderWidth="1px" CellPadding="5" CellSpacing="0" GridLines="Both">
                 <Columns>
                     <asp:BoundField DataField="MSSV" HeaderText="Mã Sinh Viên" />
                     <asp:BoundField DataField="HOVATEN" HeaderText="Họ và Tên" />
@@ -84,6 +84,9 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+            <br />
+            <asp:Button ID="btnBack" runat="server" Text="Làm mới trang" OnClick="btn_XemTatCa" CssClass="btn-update" />
+            <asp:Button ID="btnDSMH" runat="server" Text="Danh Sách Môn Học" OnClick="btn_DSMH" CssClass="btn-update" />
         </div>
     </form>
 </body>
