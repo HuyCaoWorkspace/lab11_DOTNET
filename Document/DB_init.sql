@@ -113,6 +113,7 @@ INSERT INTO SINHVIEN VALUES('B18015',N'Hồ Việt Hưng','K44-03');
 INSERT INTO CANBO VALUES('001',N'Nguyễn Văn Cường',HASHBYTES('SHA2_256', '123'));
 INSERT INTO CANBO VALUES('002',N'Huỳnh Minh Phương',HASHBYTES('SHA2_256', '123'));
 INSERT INTO CANBO VALUES('003',N'Thái Cẩm Nhung',HASHBYTES('SHA2_256', '123'));
+INSERT INTO CANBO VALUES('004',N'Thái Cẩm Nhung',HASHBYTES('SHA2_256', '123'));
 
 -- Thêm dữ liệu vào bảng MONHOC
 
@@ -141,3 +142,19 @@ INSERT INTO HOCMON (MSSV,MAMON)
 	SELECT SV.MSSV, GD.MAMON 
 	FROM SINHVIEN SV JOIN GIANGDAY GD
 	ON SV.MALOP = GD.MALOP;
+
+
+-- procedure login
+/*CREATE PROCEDURE sp_ValidateUser
+    @macb NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Trả về mật khẩu đã băm từ database
+    SELECT MATKHAU FROM CANBO WHERE MACB = @macb;
+END;
+
+
+drop procedure sp_ValidateUser;
+*/
