@@ -15,7 +15,7 @@ namespace lab11{
         }
 
         private void LoadData(string mssv = "", string mamon = ""){
-            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr)){
                 string query = @"SELECT SV.MSSV, SV.HOVATEN, HM.MAMON, MH.TENMON, HM.DIEMSO, HM.DIEMCHU 
@@ -76,7 +76,7 @@ namespace lab11{
                 }
 
                 diemChu = ConvertDiemSoToDiemChu(diemSo);
-                string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
+                string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connStr)){
                     string query = "UPDATE HOCMON SET DIEMSO = @DiemSo, DIEMCHU = @DiemChu WHERE MSSV = @MSSV AND MAMON = @MAMON";
