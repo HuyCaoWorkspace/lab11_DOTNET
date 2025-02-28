@@ -29,7 +29,8 @@ namespace lab11
 
         private void LoadData(string mssv = "", string mamon = "", string malop = "", string searchQuery = "")
         {
-            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
+
+            string connStr = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -112,6 +113,7 @@ namespace lab11
             TextBox txtDiemSo = (TextBox)row.FindControl("txtDiemSo");
 
                 if (decimal.TryParse(txtDiemSo.Text.Trim().Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal diemSo))
+
                 {
 
                     if (diemSo < 0 || diemSo > 10)
