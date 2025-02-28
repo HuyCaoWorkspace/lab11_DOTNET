@@ -8,6 +8,7 @@ namespace lab11
 {
     public partial class HienThiMonHoc : System.Web.UI.Page
     {
+
         private string connectionString = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,7 +21,7 @@ namespace lab11
                 else
                 {
                     string macb = Session["MACB"].ToString();
-                    LoadMonHoc(macb);
+                    LoadMonHocVaLopHoc(macb);
                 }
             }
         }
@@ -29,19 +30,28 @@ namespace lab11
         {
             string searchQuery = txtSearch.Text.Trim();
             string macb = Session["MACB"]?.ToString();
-            LoadMonHoc(macb, searchQuery);
+            LoadMonHocVaLopHoc(macb, searchQuery);
         }
 
-        private void LoadMonHoc(string macb, string searchQuery = "")
+        protected void GridViewMonHoc_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewMonHoc.PageIndex = e.NewPageIndex; 
+            string macb = Session["MACB"]?.ToString();
+            LoadMonHocVaLopHoc(macb);
+        }
+
+
+        private void LoadMonHocVaLopHoc(string macb, string searchQuery = "")
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT DISTINCT M.MAMON, M.TENMON, G.MACB, L.MALOP, L.TENLOP, C.TENCANBO
-                         FROM MONHOC M
-                         JOIN GIANGDAY G ON M.MAMON = G.MAMON
-                         JOIN LOPHOC L ON G.MALOP = L.MALOP
-                         JOIN CANBO C ON G.MACB = C.MACB
-                         WHERE G.MACB = @MACB";
+                string query = @"
+                SELECT M.MAMON, M.TENMON, L.MALOP, L.TENLOP, C.TENCANBO
+                FROM MONHOC M
+                JOIN GIANGDAY G ON M.MAMON = G.MAMON
+                JOIN LOPHOC L ON G.MALOP = L.MALOP
+                JOIN CANBO C ON G.MACB = C.MACB
+                WHERE G.MACB = @MACB";
 
                 if (!string.IsNullOrEmpty(searchQuery))
                 {
@@ -60,21 +70,11 @@ namespace lab11
                     SqlDataReader reader = cmd.ExecuteReader();
                     DataTable dt = new DataTable();
                     dt.Load(reader);
-                    RepeaterMonHoc.DataSource = dt;
-                    RepeaterMonHoc.DataBind();
+
+                    GridViewMonHoc.DataSource = dt;
+                    GridViewMonHoc.DataBind();
                 }
-            }
-        }
 
-        protected void RepeaterMonHoc_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DataRowView drv = (DataRowView)e.Item.DataItem;
-                string maMon = drv["MAMON"].ToString();
-                string macb = Session["MACB"]?.ToString();
-
-                Repeater rptLopHoc = (Repeater)e.Item.FindControl("RepeaterLopHoc");
             }
         }
 
@@ -93,6 +93,5 @@ namespace lab11
             Session.Abandon();
             Response.Redirect("login.aspx");
         }
-
     }
 }

@@ -98,33 +98,25 @@
             </div>
 
             <table class="table-container">
-                <thead>
-                    <tr>
-                        <th>Mã Môn</th>
-                        <th>Tên Môn</th>
-                        <th>Mã Lớp</th>
-                        <th>Tên Lớp</th>
-                        <th>Giảng Viên</th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody>
-                    <asp:Repeater ID="RepeaterMonHoc" runat="server">
-    <ItemTemplate>
-        <tr>
-            <td><%# Eval("MAMON") %></td>
-            <td><%# Eval("TENMON") %></td>
-            <td><%# Eval("MALOP") %></td>
-            <td><%# Eval("TENLOP") %></td>
-            <td>GV. <%# Eval("TENCANBO") %></td>
-            <td>
-                <asp:Button runat="server" Text="Xem Sinh Viên" CssClass="btn-view"
-                    CommandArgument='<%# Eval("MAMON") + "," + Eval("MALOP") %>'
-                    OnClick="btnXemSinhVien_Click" />
-            </td>
-        </tr>
-    </ItemTemplate>
-</asp:Repeater>
+                    <asp:GridView ID="GridViewMonHoc" runat="server" AutoGenerateColumns="False"
+                    AllowPaging="True" PageSize="3" OnPageIndexChanging="GridViewMonHoc_PageIndexChanging"
+                    CssClass="table-container">
+                        <Columns>
+                            <asp:BoundField DataField="MAMON" HeaderText="Mã Môn" />
+                            <asp:BoundField DataField="TENMON" HeaderText="Tên Môn" />
+                            <asp:BoundField DataField="MALOP" HeaderText="Mã Lớp" />
+                            <asp:BoundField DataField="TENLOP" HeaderText="Tên Lớp" />
+                            <asp:BoundField DataField="TENCANBO" HeaderText="Giảng Viên" />
+                            <asp:TemplateField HeaderText="Tùy Chọn">
+                                <ItemTemplate>
+                                    <asp:Button runat="server" Text="Xem Sinh Viên" CssClass="btn-view"
+                                        CommandArgument='<%# Eval("MAMON") + "," + Eval("MALOP") %>'
+                                        OnClick="btnXemSinhVien_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </tbody>
             </table>
         </div>
