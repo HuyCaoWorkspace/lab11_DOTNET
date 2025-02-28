@@ -96,7 +96,9 @@
             <asp:Button ID="btnLocSinhVien" CssClass="btn-search" runat="server" Text="Tìm" OnClick="btn_LocSinhVien" />
             <asp:Button ID="btnXemTatCa" CssClass="btn-search" runat="server" Text="Hiển thị tất cả" OnClick="btn_XemTatCa" />
 
-            <asp:GridView ID="GridViewCapNhatDiem" runat="server" AutoGenerateColumns="False" CssClass="Table_DSSV" BorderWidth="1px" CellPadding="5" CellSpacing="0" GridLines="Both">
+           <asp:GridView ID="GridViewCapNhatDiem" runat="server" AllowPaging="True" PageSize="3" 
+                AutoGenerateColumns="False" OnPageIndexChanging="GridViewCapNhatDiem_PageIndexChanging"
+                CssClass="Table_DSSV" BorderWidth="1px" CellPadding="5" CellSpacing="0" GridLines="Both">
                 <Columns>
                     <asp:BoundField DataField="MSSV" HeaderText="Mã Sinh Viên" />
                     <asp:BoundField DataField="HOVATEN" HeaderText="Họ và Tên" />

@@ -51,12 +51,12 @@ namespace lab11
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// RepeaterMonHoc control.
+        /// GridViewMonHoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterMonHoc;
+        protected global::System.Web.UI.WebControls.GridView GridViewMonHoc;
     }
 }
