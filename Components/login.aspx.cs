@@ -21,7 +21,7 @@ namespace lab11.Components
 
         protected void btn_login(object sender, EventArgs e)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 try

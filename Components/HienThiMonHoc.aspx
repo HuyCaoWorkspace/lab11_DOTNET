@@ -90,8 +90,11 @@
             <h2 align="center">Danh Sách Môn Học</h2>
 
             <div class="search-container">
-                <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" Placeholder="Nhập mã môn hoặc tên lớp..."></asp:TextBox>
-                <asp:Button ID="btnSearch" runat="server" Text="Tìm kiếm" CssClass="btn-search" OnClick="btnSearch_Click" />
+
+                <asp:Panel ID="pnlMain" runat="server" DefaultButton="btnSearch">
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" Placeholder="Nhập mã môn hoặc tên lớp..."></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Tìm kiếm" CssClass="btn-search" OnClick="btnSearch_Click" />
+                </asp:Panel>
             </div>
 
             <table class="table-container">

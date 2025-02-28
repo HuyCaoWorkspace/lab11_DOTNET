@@ -92,9 +92,13 @@
             </div>
             <div style="font-size: x-large; text-align: center;">CẬP NHẬT ĐIỂM THI</div>
             <br />
-            <asp:TextBox ID="txtMSSV" runat="server" CssClass="search-box" Placeholder="Nhập MSSV"></asp:TextBox>
-            <asp:Button ID="btnLocSinhVien" CssClass="btn-search" runat="server" Text="Tìm" OnClick="btn_LocSinhVien" />
-            <asp:Button ID="btnXemTatCa" CssClass="btn-search" runat="server" Text="Hiển thị tất cả" OnClick="btn_XemTatCa" />
+            <asp:Panel ID="pnlMain2" runat="server" DefaultButton="btnLocSinhVien">
+                <asp:TextBox ID="txtMSSV" runat="server" CssClass="search-box" Placeholder="Nhập MSSV"></asp:TextBox>
+                <asp:Button ID="btnLocSinhVien" CssClass="btn-search" runat="server" Text="Tìm" OnClick="btn_LocSinhVien" />
+                <asp:Button ID="btnXemTatCa" CssClass="btn-search" runat="server" Text="Hiển thị tất cả" OnClick="btn_XemTatCa" />
+            </asp:Panel>
+
+            
 
             <asp:GridView ID="GridViewCapNhatDiem" runat="server" AutoGenerateColumns="False" CssClass="Table_DSSV" BorderWidth="1px" CellPadding="5" CellSpacing="0" GridLines="Both">
                 <Columns>

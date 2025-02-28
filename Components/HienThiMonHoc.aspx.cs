@@ -8,7 +8,7 @@ namespace lab11
 {
     public partial class HienThiMonHoc : System.Web.UI.Page
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
+        private string connectionString = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -75,32 +75,6 @@ namespace lab11
                 string macb = Session["MACB"]?.ToString();
 
                 Repeater rptLopHoc = (Repeater)e.Item.FindControl("RepeaterLopHoc");
-                LoadLopHoc(maMon, macb, rptLopHoc);
-            }
-        }
-
-        private void LoadLopHoc(string maMon, string macb, Repeater rptLopHoc)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = @"SELECT L.MALOP, L.TENLOP, C.TENCANBO, @MAMON AS MAMON, M.TENMON
-                         FROM LOPHOC L 
-                         JOIN GIANGDAY G ON L.MALOP = G.MALOP 
-                         JOIN CANBO C ON G.MACB = C.MACB 
-                         JOIN MONHOC M ON G.MAMON = M.MAMON
-                         WHERE G.MAMON = @MAMON AND G.MACB = @MACB";
-
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@MAMON", maMon);
-                    cmd.Parameters.AddWithValue("@MACB", macb);
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(reader);
-                    rptLopHoc.DataSource = dt;
-                    rptLopHoc.DataBind();
-                }
             }
         }
 
