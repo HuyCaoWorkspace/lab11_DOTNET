@@ -51,10 +51,6 @@ namespace lab11
             {
                 // Băm mật khẩu người dùng nhập vào
                 string hashedInputPassword = HashPasswordSHA256(password);
-
-                System.Diagnostics.Debug.WriteLine($"Macb: {macb}");
-                System.Diagnostics.Debug.WriteLine($"Input Password Hash: {hashedInputPassword}");
-
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -63,40 +59,20 @@ namespace lab11
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Macb", macb);
-
                         connection.Open();
                         object result = command.ExecuteScalar();
-                        connection.Close();
 
-                        if (result != null && result != DBNull.Value)
+                        if (result != null && result != DBNull.Value && result is byte[] storedHashBytes)
                         {
-                            if (result is byte[] storedHashBytes)  // Kiểm tra nếu dữ liệu trả về là byte[]
-                            {
-                                // Chuyển byte[] về chuỗi HEX
-                                string storedHashedPassword = "0x" + BitConverter.ToString(storedHashBytes).Replace("-", "").ToUpper();
-                                System.Diagnostics.Debug.WriteLine($"Stored Password Hash: {storedHashedPassword}");
-
-                                // So sánh mật khẩu không phân biệt hoa thường
-                                bool matches = storedHashedPassword.Equals(hashedInputPassword, StringComparison.OrdinalIgnoreCase);
-                                System.Diagnostics.Debug.WriteLine($"Passwords match: {matches}");
-
-                                return matches;
-                            }
-                            else
-                            {
-                                System.Diagnostics.Debug.WriteLine("Stored password is not in byte[] format!");
-                            }
-                        }
-                        else
-                        {
-                            System.Diagnostics.Debug.WriteLine("No user found with this username");
+                            // Chuyển byte[] về chuỗi HEX và so sánh
+                            string storedHashedPassword = "0x" + BitConverter.ToString(storedHashBytes).Replace("-", "").ToUpper();
+                            return storedHashedPassword.Equals(hashedInputPassword, StringComparison.OrdinalIgnoreCase);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Login error: " + ex.Message);
                 lblErrorMessage.Text = "Lỗi hệ thống: " + ex.Message;
             }
 

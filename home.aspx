@@ -15,6 +15,9 @@
             <p><b>Họ và tên:</b> <asp:Label runat="server" ID="lblHoten" /></p>
 
         </div>
+        <div>
+            <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" CssClass="btn-logout" OnClick="btnLogout_Click"/>
+        </div>
     </form>
 </body>
 </html>
