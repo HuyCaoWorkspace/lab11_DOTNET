@@ -106,26 +106,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <asp:Repeater ID="RepeaterMonHoc" runat="server" OnItemDataBound="RepeaterMonHoc_ItemDataBound">
-                        <ItemTemplate>
-                            <asp:Repeater ID="RepeaterLopHoc" runat="server">
-                                <ItemTemplate>
-                                    <tr>
-                                        <td><%# Eval("MAMON") %></td>
-                                        <td><%# Eval("TENMON") %></td>
-                                        <td><%# Eval("MALOP") %></td>
-                                        <td><%# Eval("TENLOP") %></td>
-                                        <td>GV.     <%# Eval("TENCANBO") %></td>
-                                        <td>
-                                            <asp:Button runat="server" Text="Xem Sinh Viên" CssClass="btn-view"
-                                                CommandArgument='<%# Eval("MAMON") + "," + Eval("MALOP") %>'
-                                                OnClick="btnXemSinhVien_Click" />
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                    <asp:Repeater ID="RepeaterMonHoc" runat="server">
+    <ItemTemplate>
+        <tr>
+            <td><%# Eval("MAMON") %></td>
+            <td><%# Eval("TENMON") %></td>
+            <td><%# Eval("MALOP") %></td>
+            <td><%# Eval("TENLOP") %></td>
+            <td>GV. <%# Eval("TENCANBO") %></td>
+            <td>
+                <asp:Button runat="server" Text="Xem Sinh Viên" CssClass="btn-view"
+                    CommandArgument='<%# Eval("MAMON") + "," + Eval("MALOP") %>'
+                    OnClick="btnXemSinhVien_Click" />
+            </td>
+        </tr>
+    </ItemTemplate>
+</asp:Repeater>
                 </tbody>
             </table>
         </div>

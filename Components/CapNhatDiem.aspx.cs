@@ -28,7 +28,7 @@ namespace lab11
 
         private void LoadData(string mssv = "", string mamon = "", string malop = "")
         {
-            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {

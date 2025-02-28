@@ -8,7 +8,7 @@ namespace lab11
 {
     public partial class HienThiMonHoc : System.Web.UI.Page
     {
-        private string connectionString = ConfigurationManager.ConnectionStrings["DESKTOP-3JFU13I"].ConnectionString;
+        private string connectionString = ConfigurationManager.ConnectionStrings["DESKTOP-1UFQCRO"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
