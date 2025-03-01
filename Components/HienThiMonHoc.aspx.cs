@@ -25,10 +25,42 @@ namespace lab11
                 else
                 {
                     string macb = Session["MACB"].ToString();
+
+                    // Lấy tên cán bộ từ database nếu chưa có trong session
+                    if (Session["TENCANBO"] == null)
+                    {
+                        Session["TENCANBO"] = GetTenCanBo(macb);
+                    }
+
+                    string tenCanBo = Session["TENCANBO"].ToString();
+                    lblMaCB.Text = $"{macb}";
+                    lblTenCB.Text = $"{tenCanBo}";
+
                     LoadMonHocVaLopHoc(macb);
                 }
             }
         }
+
+        private string GetTenCanBo(string macb)
+        {
+            string tenCanBo = "Không xác định";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT TENCANBO FROM CANBO WHERE MACB = @MACB";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@MACB", macb);
+                    conn.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        tenCanBo = result.ToString();
+                    }
+                }
+            }
+            return tenCanBo;
+        }
+
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
