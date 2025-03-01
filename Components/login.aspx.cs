@@ -21,6 +21,10 @@ namespace lab11.Components
 
         protected void btn_login(object sender, EventArgs e)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> c455aaa9598e042b9e55b6da3e6828f9d0319387
             string connStr = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connStr))
             {

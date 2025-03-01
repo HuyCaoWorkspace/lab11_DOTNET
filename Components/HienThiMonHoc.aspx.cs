@@ -8,8 +8,12 @@ namespace lab11
 {
     public partial class HienThiMonHoc : System.Web.UI.Page
     {
+<<<<<<< HEAD
         private string connectionString = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
+=======
+>>>>>>> c455aaa9598e042b9e55b6da3e6828f9d0319387
 
+        private string connectionString = ConfigurationManager.ConnectionStrings["DBC"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -74,6 +78,7 @@ namespace lab11
                     GridViewMonHoc.DataSource = dt;
                     GridViewMonHoc.DataBind();
                 }
+
             }
         }
 
