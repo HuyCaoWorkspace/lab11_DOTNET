@@ -8,10 +8,17 @@
             font-family: Times New Roman, sans-serif;
         }
 
-        .logout-container {
-            display: flex;
-            justify-content: flex-end;
+         .header-container {
             padding: 10px 20px;
+        }
+
+        .user-info {
+            font-weight: bold;
+            display: inline;
+        }
+
+        .user-block {
+            margin-bottom: 10px;
         }
 
         .btn-danger {
@@ -47,11 +54,6 @@
             font-size: 16px;
         }
 
-        .btn-search:hover {
-            background-color: #3674B5;
-        }
-
-
         .table-container {
             width: 90%;
             margin: 20px auto;
@@ -83,14 +85,19 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <div class="logout-container">
-                <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" OnClick="btnLogout_Click" CssClass="btn-danger" />
+               <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <span class="user-label">Mã CB: </span><asp:Label ID="lblMaCB" runat="server" CssClass="user-info"></asp:Label><br/>
+        <span class="user-label">Tên Cán Bộ: </span><asp:Label ID="lblTenCB" runat="server" CssClass="user-info"></asp:Label>
+    </div>
+    <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" OnClick="btnLogout_Click" CssClass="btn-danger" />
+</div>
+
             </div>
 
             <h2 align="center">Danh Sách Môn Học</h2>
 
             <div class="search-container">
-
                 <asp:Panel ID="pnlMain" runat="server" DefaultButton="btnSearch">
                     <asp:TextBox ID="txtSearch" runat="server" CssClass="search-box" Placeholder="Nhập mã môn hoặc tên lớp..."></asp:TextBox>
                     <asp:Button ID="btnSearch" runat="server" Text="Tìm kiếm" CssClass="btn-search" OnClick="btnSearch_Click" />
@@ -107,7 +114,6 @@
                             <asp:BoundField DataField="TENMON" HeaderText="Tên Môn" />
                             <asp:BoundField DataField="MALOP" HeaderText="Mã Lớp" />
                             <asp:BoundField DataField="TENLOP" HeaderText="Tên Lớp" />
-                            <asp:BoundField DataField="TENCANBO" HeaderText="Giảng Viên" />
                             <asp:TemplateField HeaderText="Tùy Chọn">
                                 <ItemTemplate>
                                     <asp:Button runat="server" Text="Xem Sinh Viên" CssClass="btn-view"
